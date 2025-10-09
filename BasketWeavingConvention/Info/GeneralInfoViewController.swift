@@ -50,8 +50,8 @@ class GeneralInfoViewController: UIViewController {
             mapView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
         ])
 
-        // TODO: Create CLLocationCoordinate2D for Ngee Ann Polytechnic
-        // Coordinates: latitude: 1.332, longitude: 103.774
+        // TODO: Create CLLocationCoordinate2D for your location
+        // NP Coordinates: latitude: 1.332, longitude: 103.774
 
         // TODO: Create MKCoordinateRegion centered on the coordinate
         // Use 1000m for both latitudinalMeters and longitudinalMeters
@@ -59,7 +59,7 @@ class GeneralInfoViewController: UIViewController {
         // TODO: Set the region on mapView using setRegion(_:animated:)
 
         // TODO: Create MKPointAnnotation for the location
-        // Set coordinate and title ("Ngee Ann Polytechnic")
+        // Set coordinate and title, e.g. "Ngee Ann Polytechnic"
         // Add annotation to mapView using addAnnotation(_:)
     }
 

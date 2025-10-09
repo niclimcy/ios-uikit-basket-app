@@ -3,22 +3,15 @@ import UIKit
 // TODO: Define the NameCardEditViewControllerDelegate protocol here
 // It should inherit from AnyObject (for weak references)
 // Add one method: nameCardEditDidSave(name: String, email: String, photo: UIImage?)
-/*
-protocol NameCardEditViewControllerDelegate: AnyObject {
-    func nameCardEditDidSave(name: String, email: String, photo: UIImage?)
-}
-*/
 
 /// Edit modal for name card - allows user to change photo, name, and email
 /// Presented modally from NameCardDisplayViewController
+// TODO: Add UIImagePickerControllerDelegate and UINavigationControllerDelegate conformance
 class NameCardEditViewController: UIViewController {
-    // TODO: Add UIImagePickerControllerDelegate and UINavigationControllerDelegate conformance
 
     // MARK: - Properties
 
     // TODO: Add delegate property
-    // weak var delegate: NameCardEditViewControllerDelegate?
-    // weak prevents retain cycles, AnyObject ensures it's a class
 
     private var selectedImage: UIImage?
 
@@ -98,7 +91,6 @@ class NameCardEditViewController: UIViewController {
         let email = emailTextField.text ?? ""
 
         // TODO: Call delegate method to save the data
-        // delegate?.nameCardEditDidSave(name: name, email: email, photo: selectedImage)
 
         // Dismiss modal and return to display view
         dismiss(animated: true)

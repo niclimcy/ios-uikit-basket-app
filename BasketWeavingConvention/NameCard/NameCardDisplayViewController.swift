@@ -3,7 +3,6 @@ import UIKit
 /// Displays name card with photo, name, email, and auto-generated QR code
 /// Read-only view - tap Edit to modify details
 class NameCardDisplayViewController: UIViewController {
-    // TODO: Add NameCardEditViewControllerDelegate conformance after implementing the protocol
 
     // MARK: - UI Components
 

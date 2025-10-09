@@ -32,10 +32,9 @@ class TalksPageViewController: UIPageViewController, UIPageViewControllerDelegat
         view.backgroundColor = .systemGroupedBackground
         title = "Talks"
 
-        // TODO: Set self.dataSource = self
-        // TODO: Set self.delegate = self
+        // TODO: Set datasource and delegate
 
-        // TODO: Call configurePages() to set up the talk view controllers
+        configurePages()
         configurePageControl()
     }
 
@@ -48,15 +47,12 @@ class TalksPageViewController: UIPageViewController, UIPageViewControllerDelegat
 
     private func configurePages() {
         // TODO: Create talkViewControllers array by mapping talks
-        // Use talks.map { TalkViewController(talk: $0) }
 
         // TODO: Set the initial view controller
         // Get the first view controller from talkViewControllers
-        // Call setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
 
         // TODO: Configure page control
-        // Set pageControl.numberOfPages to talkViewControllers.count
-        // Set pageControl.currentPage to 0
+        // Set pageControl.numberOfPages and pageControl.currentPage as necessary
     }
 
     private func configurePageControl() {
@@ -83,13 +79,13 @@ class TalksPageViewController: UIPageViewController, UIPageViewControllerDelegat
     // MARK: - UIPageViewControllerDataSource
 
     // TODO: Implement viewControllerBefore
-    // 1. Find currentIndex using talkViewControllers.firstIndex(of: viewController)
-    // 2. Calculate previousIndex = currentIndex - 1
+    // 1. Find currentIndex using talkViewControllers.firstIndex
+    // 2. Calculate previousIndex
     // 3. Check if previousIndex >= 0, otherwise return nil
     // 4. Return talkViewControllers[previousIndex]
 
     // TODO: Implement viewControllerAfter
-    // 1. Find currentIndex using talkViewControllers.firstIndex(of: viewController)
+    // 1. Find currentIndex using talkViewControllers.firstIndex
     // 2. Calculate nextIndex = currentIndex + 1
     // 3. Check if nextIndex < talkViewControllers.count, otherwise return nil
     // 4. Return talkViewControllers[nextIndex]
