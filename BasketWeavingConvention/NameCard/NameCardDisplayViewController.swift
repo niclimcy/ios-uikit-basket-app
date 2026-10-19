@@ -22,10 +22,14 @@ class NameCardDisplayViewController: UIViewController {
         title = "Name Card"
         navigationItem.largeTitleDisplayMode = .always
 
-        // TODO: Add edit button to navigation bar
         // Create UIBarButtonItem with .edit system item
         // Set target: self, action: #selector(editTapped)
         // Assign to navigationItem.rightBarButtonItem
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .edit,
+            target: self,
+            action: #selector(editTapped)
+        )
 
         setupScrollView()
         setupCardContainer()
@@ -54,21 +58,35 @@ class NameCardDisplayViewController: UIViewController {
         scrollView.alwaysBounceVertical = true
 
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor
+            ),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            scrollView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor
+            ),
         ])
 
         scrollView.addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor)
+            contentView.topAnchor.constraint(
+                equalTo: scrollView.contentLayoutGuide.topAnchor
+            ),
+            contentView.leadingAnchor.constraint(
+                equalTo: scrollView.contentLayoutGuide.leadingAnchor
+            ),
+            contentView.trailingAnchor.constraint(
+                equalTo: scrollView.contentLayoutGuide.trailingAnchor
+            ),
+            contentView.bottomAnchor.constraint(
+                equalTo: scrollView.contentLayoutGuide.bottomAnchor
+            ),
+            contentView.widthAnchor.constraint(
+                equalTo: scrollView.frameLayoutGuide.widthAnchor
+            ),
         ])
     }
 
@@ -81,10 +99,22 @@ class NameCardDisplayViewController: UIViewController {
         cardContainerView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            cardContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            cardContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            cardContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            cardContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+            cardContainerView.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: 20
+            ),
+            cardContainerView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 20
+            ),
+            cardContainerView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -20
+            ),
+            cardContainerView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -20
+            ),
         ])
     }
 
@@ -98,7 +128,10 @@ class NameCardDisplayViewController: UIViewController {
 
         // Default placeholder
         let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .light)
-        let placeholderImage = UIImage(systemName: "person.circle.fill", withConfiguration: config)
+        let placeholderImage = UIImage(
+            systemName: "person.circle.fill",
+            withConfiguration: config
+        )
         photoImageView.image = placeholderImage
         photoImageView.tintColor = .systemGray3
 
@@ -106,10 +139,15 @@ class NameCardDisplayViewController: UIViewController {
         photoImageView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            photoImageView.topAnchor.constraint(equalTo: cardContainerView.topAnchor, constant: 32),
-            photoImageView.centerXAnchor.constraint(equalTo: cardContainerView.centerXAnchor),
+            photoImageView.topAnchor.constraint(
+                equalTo: cardContainerView.topAnchor,
+                constant: 32
+            ),
+            photoImageView.centerXAnchor.constraint(
+                equalTo: cardContainerView.centerXAnchor
+            ),
             photoImageView.widthAnchor.constraint(equalToConstant: 160),
-            photoImageView.heightAnchor.constraint(equalToConstant: 160)
+            photoImageView.heightAnchor.constraint(equalToConstant: 160),
         ])
     }
 
@@ -123,9 +161,18 @@ class NameCardDisplayViewController: UIViewController {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: photoImageView.bottomAnchor, constant: 24),
-            nameLabel.leadingAnchor.constraint(equalTo: cardContainerView.leadingAnchor, constant: 20),
-            nameLabel.trailingAnchor.constraint(equalTo: cardContainerView.trailingAnchor, constant: -20)
+            nameLabel.topAnchor.constraint(
+                equalTo: photoImageView.bottomAnchor,
+                constant: 24
+            ),
+            nameLabel.leadingAnchor.constraint(
+                equalTo: cardContainerView.leadingAnchor,
+                constant: 20
+            ),
+            nameLabel.trailingAnchor.constraint(
+                equalTo: cardContainerView.trailingAnchor,
+                constant: -20
+            ),
         ])
     }
 
@@ -140,9 +187,18 @@ class NameCardDisplayViewController: UIViewController {
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-            emailLabel.leadingAnchor.constraint(equalTo: cardContainerView.leadingAnchor, constant: 20),
-            emailLabel.trailingAnchor.constraint(equalTo: cardContainerView.trailingAnchor, constant: -20)
+            emailLabel.topAnchor.constraint(
+                equalTo: nameLabel.bottomAnchor,
+                constant: 8
+            ),
+            emailLabel.leadingAnchor.constraint(
+                equalTo: cardContainerView.leadingAnchor,
+                constant: 20
+            ),
+            emailLabel.trailingAnchor.constraint(
+                equalTo: cardContainerView.trailingAnchor,
+                constant: -20
+            ),
         ])
     }
 
@@ -154,16 +210,26 @@ class NameCardDisplayViewController: UIViewController {
         qrCodeImageView.layer.borderWidth = 1
         qrCodeImageView.layer.borderColor = UIColor.systemGray4.cgColor
         qrCodeImageView.clipsToBounds = true
+        qrCodeImageView.accessibilityLabel = "Contact QR Code"
+        qrCodeImageView.isAccessibilityElement = true
 
         cardContainerView.addSubview(qrCodeImageView)
         qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            qrCodeImageView.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 32),
-            qrCodeImageView.centerXAnchor.constraint(equalTo: cardContainerView.centerXAnchor),
+            qrCodeImageView.topAnchor.constraint(
+                equalTo: emailLabel.bottomAnchor,
+                constant: 32
+            ),
+            qrCodeImageView.centerXAnchor.constraint(
+                equalTo: cardContainerView.centerXAnchor
+            ),
             qrCodeImageView.widthAnchor.constraint(equalToConstant: 200),
             qrCodeImageView.heightAnchor.constraint(equalToConstant: 200),
-            qrCodeImageView.bottomAnchor.constraint(equalTo: cardContainerView.bottomAnchor, constant: -32)
+            qrCodeImageView.bottomAnchor.constraint(
+                equalTo: cardContainerView.bottomAnchor,
+                constant: -32
+            ),
         ])
     }
 
@@ -186,8 +252,14 @@ class NameCardDisplayViewController: UIViewController {
             photoImageView.contentMode = .scaleAspectFill
         } else {
             // Reset to placeholder
-            let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .light)
-            let placeholderImage = UIImage(systemName: "person.circle.fill", withConfiguration: config)
+            let config = UIImage.SymbolConfiguration(
+                pointSize: 50,
+                weight: .light
+            )
+            let placeholderImage = UIImage(
+                systemName: "person.circle.fill",
+                withConfiguration: config
+            )
             photoImageView.image = placeholderImage
             photoImageView.contentMode = .center
         }
@@ -207,12 +279,12 @@ class NameCardDisplayViewController: UIViewController {
         // """ is a multi-line string literal (Swift 4+)
         // \(name) = string interpolation (insert variable into string)
         let vCard = """
-        BEGIN:VCARD
-        VERSION:3.0
-        FN:\(name)
-        EMAIL:\(email)
-        END:VCARD
-        """
+            BEGIN:VCARD
+            VERSION:3.0
+            FN:\(name)
+            EMAIL:\(email)
+            END:VCARD
+            """
 
         if let qrImage = generateQRCode(from: vCard) {
             qrCodeImageView.image = qrImage
@@ -231,7 +303,9 @@ class NameCardDisplayViewController: UIViewController {
 
         // CIFilter(name:) creates filter by name
         // "CIQRCodeGenerator" is built into iOS, no external library needed
-        guard let filter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
+        guard let filter = CIFilter(name: "CIQRCodeGenerator") else {
+            return nil
+        }
 
         // Set the data to encode
         // Key-value coding: filters use string keys to set parameters
@@ -256,26 +330,44 @@ class NameCardDisplayViewController: UIViewController {
         // CGImage = Core Graphics format (bitmap)
         // UIImage = UIKit format (for display in UIImageView)
         let context = CIContext()
-        guard let cgImage = context.createCGImage(scaledImage, from: scaledImage.extent) else { return nil }
+        guard
+            let cgImage = context.createCGImage(
+                scaledImage,
+                from: scaledImage.extent
+            )
+        else { return nil }
 
         return UIImage(cgImage: cgImage)
     }
 
     // MARK: - Actions
 
-    // TODO: Implement editTapped method
     // 1. Load current data using NameCardData.loadName(), loadEmail(), loadPhoto()
     // 2. Create NameCardEditViewController with current data
     // 3. Set editVC.delegate = self
     // 4. Wrap editVC in UINavigationController
     // 5. Present the navigation controller modally
-
-    // TODO: Implement NameCardEditViewControllerDelegate in extension below
+    @objc private func editTapped() {
+        let name = NameCardData.loadName()
+        let email = NameCardData.loadEmail()
+        let photo = NameCardData.loadPhoto()
+        let editVC = NameCardEditViewController(name: name, email: email, photo: photo)
+        
+        editVC.delegate = self
+        let navController = UINavigationController(rootViewController: editVC)
+        
+        present(navController, animated: true)
+    }
 }
 
 // MARK: - NameCardEditViewControllerDelegate
 
-// TODO: Add extension conforming to NameCardEditViewControllerDelegate
-// Implement nameCardEditDidSave(name:email:photo:)
-// - Save data using NameCardData.saveName(), saveEmail(), savePhoto()
-// - Call loadData() to refresh the UI
+extension NameCardDisplayViewController: NameCardEditViewControllerDelegate {
+    func nameCardEditDidSave(name: String, email: String, photo: UIImage?) {
+        NameCardData.saveName(name)
+        NameCardData.saveEmail(email)
+        NameCardData.savePhoto(photo)
+
+        loadData()
+    }
+}

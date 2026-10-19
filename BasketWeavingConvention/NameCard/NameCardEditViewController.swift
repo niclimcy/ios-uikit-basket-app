@@ -1,17 +1,20 @@
 import UIKit
 
-// TODO: Define the NameCardEditViewControllerDelegate protocol here
 // It should inherit from AnyObject (for weak references)
 // Add one method: nameCardEditDidSave(name: String, email: String, photo: UIImage?)
+protocol NameCardEditViewControllerDelegate: AnyObject {
+    func nameCardEditDidSave(name: String, email: String, photo: UIImage?)
+}
 
 /// Edit modal for name card - allows user to change photo, name, and email
 /// Presented modally from NameCardDisplayViewController
-// TODO: Add UIImagePickerControllerDelegate and UINavigationControllerDelegate conformance
-class NameCardEditViewController: UIViewController {
+class NameCardEditViewController: UIViewController,
+    UIImagePickerControllerDelegate, UINavigationControllerDelegate
+{
 
     // MARK: - Properties
 
-    // TODO: Add delegate property
+    weak var delegate: NameCardEditViewControllerDelegate?
 
     private var selectedImage: UIImage?
 
@@ -90,7 +93,11 @@ class NameCardEditViewController: UIViewController {
         let name = nameTextField.text ?? ""
         let email = emailTextField.text ?? ""
 
-        // TODO: Call delegate method to save the data
+        delegate?.nameCardEditDidSave(
+            name: name,
+            email: email,
+            photo: selectedImage
+        )
 
         // Dismiss modal and return to display view
         dismiss(animated: true)
@@ -106,10 +113,14 @@ class NameCardEditViewController: UIViewController {
 
         // Pin scroll view to edges of safe area
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor
+            ),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            scrollView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor
+            ),
         ])
 
         // Add content view inside scroll view
@@ -118,12 +129,22 @@ class NameCardEditViewController: UIViewController {
 
         // Content view constraints determine scrollable area
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            contentView.topAnchor.constraint(
+                equalTo: scrollView.contentLayoutGuide.topAnchor
+            ),
+            contentView.leadingAnchor.constraint(
+                equalTo: scrollView.contentLayoutGuide.leadingAnchor
+            ),
+            contentView.trailingAnchor.constraint(
+                equalTo: scrollView.contentLayoutGuide.trailingAnchor
+            ),
+            contentView.bottomAnchor.constraint(
+                equalTo: scrollView.contentLayoutGuide.bottomAnchor
+            ),
             // Width matches scroll view frame so content doesn't scroll horizontally
-            contentView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor)
+            contentView.widthAnchor.constraint(
+                equalTo: scrollView.frameLayoutGuide.widthAnchor
+            ),
         ])
     }
 
@@ -138,10 +159,22 @@ class NameCardEditViewController: UIViewController {
 
         // Card has padding from screen edges
         NSLayoutConstraint.activate([
-            cardContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            cardContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            cardContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            cardContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+            cardContainerView.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: 20
+            ),
+            cardContainerView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 20
+            ),
+            cardContainerView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -20
+            ),
+            cardContainerView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -20
+            ),
         ])
     }
 
@@ -149,14 +182,17 @@ class NameCardEditViewController: UIViewController {
         // Configure image view as circular profile photo
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 80 // Half of width/height for perfect circle
+        imageView.layer.cornerRadius = 80  // Half of width/height for perfect circle
         imageView.backgroundColor = .systemGray5
         imageView.layer.borderWidth = 4
         imageView.layer.borderColor = UIColor.systemBackground.cgColor
 
         // Add placeholder icon using SF Symbols
         let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .light)
-        let placeholderImage = UIImage(systemName: "person.circle.fill", withConfiguration: config)
+        let placeholderImage = UIImage(
+            systemName: "person.circle.fill",
+            withConfiguration: config
+        )
         imageView.image = placeholderImage
         imageView.tintColor = .systemGray3
         imageView.contentMode = .center
@@ -165,10 +201,15 @@ class NameCardEditViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: cardContainerView.topAnchor, constant: 32),
-            imageView.centerXAnchor.constraint(equalTo: cardContainerView.centerXAnchor),
+            imageView.topAnchor.constraint(
+                equalTo: cardContainerView.topAnchor,
+                constant: 32
+            ),
+            imageView.centerXAnchor.constraint(
+                equalTo: cardContainerView.centerXAnchor
+            ),
             imageView.widthAnchor.constraint(equalToConstant: 160),
-            imageView.heightAnchor.constraint(equalToConstant: 160)
+            imageView.heightAnchor.constraint(equalToConstant: 160),
         ])
     }
 
@@ -197,15 +238,33 @@ class NameCardEditViewController: UIViewController {
 
         // Layout text fields below image view
         NSLayoutConstraint.activate([
-            nameTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 32),
-            nameTextField.leadingAnchor.constraint(equalTo: cardContainerView.leadingAnchor, constant: 20),
-            nameTextField.trailingAnchor.constraint(equalTo: cardContainerView.trailingAnchor, constant: -20),
+            nameTextField.topAnchor.constraint(
+                equalTo: imageView.bottomAnchor,
+                constant: 32
+            ),
+            nameTextField.leadingAnchor.constraint(
+                equalTo: cardContainerView.leadingAnchor,
+                constant: 20
+            ),
+            nameTextField.trailingAnchor.constraint(
+                equalTo: cardContainerView.trailingAnchor,
+                constant: -20
+            ),
             nameTextField.heightAnchor.constraint(equalToConstant: 50),
 
-            emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 12),
-            emailTextField.leadingAnchor.constraint(equalTo: cardContainerView.leadingAnchor, constant: 20),
-            emailTextField.trailingAnchor.constraint(equalTo: cardContainerView.trailingAnchor, constant: -20),
-            emailTextField.heightAnchor.constraint(equalToConstant: 50)
+            emailTextField.topAnchor.constraint(
+                equalTo: nameTextField.bottomAnchor,
+                constant: 12
+            ),
+            emailTextField.leadingAnchor.constraint(
+                equalTo: cardContainerView.leadingAnchor,
+                constant: 20
+            ),
+            emailTextField.trailingAnchor.constraint(
+                equalTo: cardContainerView.trailingAnchor,
+                constant: -20
+            ),
+            emailTextField.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
 
@@ -219,11 +278,15 @@ class NameCardEditViewController: UIViewController {
         textField.layer.cornerCurve = .continuous
 
         // Add padding using invisible views on left and right
-        let leftPadding = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 44))
+        let leftPadding = UIView(
+            frame: CGRect(x: 0, y: 0, width: 16, height: 44)
+        )
         textField.leftView = leftPadding
         textField.leftViewMode = .always
 
-        let rightPadding = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 44))
+        let rightPadding = UIView(
+            frame: CGRect(x: 0, y: 0, width: 16, height: 44)
+        )
         textField.rightView = rightPadding
         textField.rightViewMode = .always
     }
@@ -237,22 +300,37 @@ class NameCardEditViewController: UIViewController {
         config.buttonSize = .large
 
         photoButton.configuration = config
-        photoButton.addTarget(self, action: #selector(photoButtonTapped), for: .touchUpInside)
+        photoButton.addTarget(
+            self,
+            action: #selector(photoButtonTapped),
+            for: .touchUpInside
+        )
 
         cardContainerView.addSubview(photoButton)
         photoButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            photoButton.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 32),
-            photoButton.centerXAnchor.constraint(equalTo: cardContainerView.centerXAnchor),
-            photoButton.bottomAnchor.constraint(equalTo: cardContainerView.bottomAnchor, constant: -32)
+            photoButton.topAnchor.constraint(
+                equalTo: emailTextField.bottomAnchor,
+                constant: 32
+            ),
+            photoButton.centerXAnchor.constraint(
+                equalTo: cardContainerView.centerXAnchor
+            ),
+            photoButton.bottomAnchor.constraint(
+                equalTo: cardContainerView.bottomAnchor,
+                constant: -32
+            ),
         ])
     }
 
     private func setupKeyboardDismissal() {
         // Add tap gesture to dismiss keyboard when tapping outside text fields
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapGesture.cancelsTouchesInView = false // Allow other views to still receive touches
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        tapGesture.cancelsTouchesInView = false  // Allow other views to still receive touches
         view.addGestureRecognizer(tapGesture)
     }
 
@@ -262,7 +340,6 @@ class NameCardEditViewController: UIViewController {
 
     // MARK: - Photo Selection
 
-    // TODO: Implement photoButtonTapped
     // 1. Create UIAlertController with .actionSheet style
     // 2. Add "Take Photo" action if camera is available (check UIImagePickerController.isSourceTypeAvailable(.camera))
     //    - Call presentImagePicker(sourceType: .camera) in the action handler
@@ -272,28 +349,82 @@ class NameCardEditViewController: UIViewController {
     // 5. For iPad: set popoverPresentationController.sourceView = photoButton
     // 6. Present the alert
     @objc private func photoButtonTapped() {
-        
+        let alert = UIAlertController(
+            title: "Choose Photo Source",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            alert.addAction(
+                UIAlertAction(
+                    title: "Take photo",
+                    style: .default,
+                    handler: { (alert: UIAlertAction!) in
+                        self.presentImagePicker(sourceType: .camera)
+                    }
+                )
+            )
+        }
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            alert.addAction(
+                UIAlertAction(
+                    title: "Choose from Library",
+                    style: .default,
+                    handler: { (alert: UIAlertAction!) in
+                        self.presentImagePicker(sourceType: .photoLibrary)
+                    }
+                )
+            )
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = photoButton
+        }
+
+        present(alert, animated: true)
     }
 
-    // TODO: Implement presentImagePicker(sourceType:)
     // 1. Create UIImagePickerController
     // 2. Set picker.delegate = self
     // 3. Set picker.sourceType to the parameter
     // 4. Set picker.allowsEditing = true
     // 5. Present the picker
+    private func presentImagePicker(
+        sourceType: UIImagePickerController.SourceType
+    ) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = sourceType
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
 
     // MARK: - UIImagePickerControllerDelegate
 
-    // TODO: Implement imagePickerController(_:didFinishPickingMediaWithInfo:)
     // 1. Try to get edited image from info[.editedImage]
     // 2. If not found, get original image from info[.originalImage]
     // 3. Set selectedImage to the chosen image
     // 4. Update imageView.image
     // 5. Set imageView.contentMode = .scaleAspectFill
     // 6. Dismiss the picker
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey:
+            Any]
+    ) {
+        selectedImage =
+            (info[.editedImage] as? UIImage)
+            ?? (info[.originalImage] as? UIImage)
+        imageView.image = selectedImage
+        imageView.contentMode = .scaleAspectFill
+        picker.dismiss(animated: true)
+    }
 
-    // TODO: Implement imagePickerControllerDidCancel(_:)
     // Just dismiss the picker
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -304,9 +435,9 @@ extension NameCardEditViewController: UITextFieldDelegate {
     /// Return key on email field dismisses keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == nameTextField {
-            emailTextField.becomeFirstResponder() // Move to next field
+            emailTextField.becomeFirstResponder()  // Move to next field
         } else {
-            textField.resignFirstResponder() // Dismiss keyboard
+            textField.resignFirstResponder()  // Dismiss keyboard
         }
         return true
     }

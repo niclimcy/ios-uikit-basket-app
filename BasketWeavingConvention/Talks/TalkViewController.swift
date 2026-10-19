@@ -66,6 +66,19 @@ class TalkViewController: UIViewController {
         summaryLabel.font = .systemFont(ofSize: 16, weight: .regular)
         summaryLabel.numberOfLines = 0 // Allow text to wrap
         summaryLabel.textColor = .secondaryLabel
+        
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 16
+        imageView.backgroundColor = .systemGray5
+        imageView.layer.borderWidth = 4
+        imageView.layer.borderColor = UIColor.systemBackground.cgColor
+        if let image = talk.image {
+            imageView.image = image
+        } else {
+            imageView.isHidden = true
+        }
 
         // MARK: Spacer View Pattern
 
@@ -78,7 +91,7 @@ class TalkViewController: UIViewController {
         spacerView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
         // Create vertical stack of all labels + spacer
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, speakerLabel, timeLabel, summaryLabel, spacerView])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, speakerLabel, timeLabel, summaryLabel, imageView, spacerView])
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.spacing = 16 // Space between elements
